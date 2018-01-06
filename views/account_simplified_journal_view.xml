@@ -1,0 +1,86 @@
+<openerp>
+	<data>
+		
+<!-- MASTER PRESET ============================================================================= -->
+
+		<record id="account_journal_preset_form" model="ir.ui.view">
+			<field name="name">account.journal.preset.form</field>
+			<field name="model">account.journal.preset</field>
+			<field name="arch" type="xml">
+				<form string="Preset Journal">
+					<group>
+						<field name="name" />
+						<field name="code" class="oe_inline" />
+						<field name="journal_id" />
+						<field name="default_debet_account_id" />
+						<field name="default_credit_account_id" />
+						<field name="auto_post" />
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record id="account_journal_preset_list" model="ir.ui.view">
+			<field name="name">account.journal.preset.list</field>
+			<field name="model">account.journal.preset</field>
+			<field name="arch" type="xml">
+				<tree string="Preset Journals">
+					<field name="name" />
+					<field name="journal_id" />
+					<field name="default_debet_account_id" />
+					<field name="default_credit_account_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="simplified_journal_action_preset" model="ir.actions.act_window">
+			<field name="name">Preset Journals</field> 
+			<field name="res_model">account.journal.preset</field> 
+			<field name="view_type">form</field> 
+			<field name="view_mode">tree,form</field> 
+		</record>
+		
+		<menuitem sequence="10" parent="account.menu_journals" id="simplified_journal_menu_preset" action="simplified_journal_action_preset" />
+
+<!-- SIMPLIFIED JOURNAL ============================================================================= -->
+
+		<record id="account_journal_simplified_form" model="ir.ui.view">
+			<field name="name">account.journal.simplified.form</field>
+			<field name="model">account.journal.simplified</field>
+			<field name="arch" type="xml">
+				<form string="Journal Entry (Simplified)">
+					<group>
+						<field name="journal_date" />
+						<field name="preset_id" />
+						<field name="amount" />
+						<field name="name" />
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record id="account_journal_simplified_list" model="ir.ui.view">
+			<field name="name">account.journal.simplified.list</field>
+			<field name="model">account.journal.simplified</field>
+			<field name="arch" type="xml">
+				<tree string="Journal Entries (Simplified)">
+					<field name="journal_date" />
+					<field name="create_uid" string="Input By" />
+					<field name="preset_id" />
+					<field name="amount" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="simplified_journal_action_entry" model="ir.actions.act_window">
+			<field name="name">Journal Entries (Simplified)</field> 
+			<field name="res_model">account.journal.simplified</field> 
+			<field name="view_type">form</field> 
+			<field name="view_mode">tree,form</field> 
+		</record>
+		
+		<menuitem sequence="10" parent="account.menu_finance_entries" id="simplified_journal_menu_entry" action="simplified_journal_action_entry" />
+
+	</data>
+</openerp>

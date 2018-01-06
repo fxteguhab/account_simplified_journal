@@ -1,0 +1,1 @@
+import account_simplified_journal
