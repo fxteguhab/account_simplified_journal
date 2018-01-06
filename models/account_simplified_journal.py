@@ -43,6 +43,14 @@ class account_journal_simplified(osv.osv):
 		'journal_date': lambda self, cr, uid, context: datetime.now(),
 	}
 
+	def _get_debet_account(self, cr, uid, transaction_id, preset, context={}):
+	# overridable by inheriting modules
+		return preset.default_debet_account_id.id
+
+	def _get_credit_account(self, cr, uid, transaction_id, preset, context={}):
+	# overridable by inheriting modules
+		return preset.default_credit_account_id.id
+
 	def create(self, cr, uid, vals, context={}):
 		new_id = super(account_journal_simplified, self).create(cr, uid, vals, context)
 		preset = self.pool.get('account.journal.preset').browse(cr, uid, vals['preset_id'])
@@ -52,13 +60,13 @@ class account_journal_simplified(osv.osv):
 		entry_data['line_id'] = [
 			[0,False,{
 				'name': name, 
-				'account_id': preset.default_debet_account_id.id, 
+				'account_id': self._get_debet_account(cr, uid, new_id, preset, context), 
 				'debit': vals.get('amount', 0),
 				'credit': 0,
 			}],
 			[0,False,{
 				'name': name, 
-				'account_id': preset.default_credit_account_id.id, 
+				'account_id': self._get_credit_account(cr, uid, new_id, preset, context), 
 				'credit': vals.get('amount', 0),
 				'debit': 0,
 			}],
