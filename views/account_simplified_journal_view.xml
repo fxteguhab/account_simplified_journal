@@ -82,5 +82,30 @@
 		
 		<menuitem sequence="10" parent="account.menu_finance_entries" id="simplified_journal_menu_entry" action="simplified_journal_action_entry" />
 
+		<!-- TEGUH@20180405 bikin search baru -->
+		<record id="account_journal_simplified_search" model="ir.ui.view">
+			<field name="name">account.journal.simplified.search</field>
+			<field name="model">account.journal.simplified</field>
+			<field name="arch" type="xml">
+				<search>
+					<group string="Group by Timeline">
+						<filter string="Year" name="journal_date_year" domain="[]" context="{'group_by': 'journal_date:year'}"/>
+						<filter string="Month" name="journal_date_month" domain="[]" context="{'group_by': 'journal_date:month'}"/>
+						<filter string="Week" name="journal_date_month" domain="[]" context="{'group_by': 'journal_date:week'}"/>
+						<filter string="Day" name="journal_date_day" domain="[]" context="{'group_by': 'journal_date:day'}"/>	
+						<filter string="Today" domain="[('journal_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),('journal_date', '&lt;=', datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]"/>
+					</group>
+					<group string="Group by">
+						<filter string="Branch" name="branch_id" domain="[]" context="{'group_by': 'branch_id'}"/>
+						<filter string="Transaction Type" name="preset_id" domain="[]" context="{'group_by': 'preset_id'}"/>
+					</group>
+					<group string="Group by HR">
+						<filter string="Inputer" name="create_uid" domain="[]" context="{'group_by': 'create_uid'}"/>
+                		<filter string="Employee" name="employee_id" domain="[]" context="{'group_by': 'employee_id'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
 	</data>
 </openerp>
